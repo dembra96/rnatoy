@@ -104,9 +104,11 @@ process makeTranscript {
      
     output:
     set pair_id, file('transcript_*.gtf') into transcripts
+    file('*.txt') into txt_output_copy
  
     """
     cufflinks --no-update-check -q -p $task.cpus -G $annot $bam_file
+    cp transcripts.gtf transcript_${pair_id}.txt
     mv transcripts.gtf transcript_${pair_id}.gtf
     """
 }
